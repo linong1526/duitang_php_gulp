@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" id="export" value="保存" />
+    <script>
+const fs =require('fs')
+const path = require('path')
+        //获取数据
+        let xhr = new XMLHttpRequest();
+        xhr.open('get',
+        '/dt_hot?start=0&limit=18'
+        );
+        xhr.send();
+            xhr.onload = function () {
+                let res = xhr.responseText;//json
+                // console.log(res)
+                console.log(JSON.parse(res));
+                let resobj=JSON.parse(res);
+                console.log(resobj.data);
+                let reslist=resobj.data.object_list;
+                console.log(reslist)
+}
+
+                // function saveHandler() {
+                // var button = document.getElementById("export");
+                // button.addEventListener("click", saveHandler, false);
+                //     let datalist = reslist;
+                //     console.log(datalist)
+                //     var content = JSON.stringify(datalist);
+                //     console.log(content)
+                //     var blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+                //     saveAs(blob, "by_common.json");
+                // }
+            
+
+
+
+
+    </script>
+</body>
+
+</html>

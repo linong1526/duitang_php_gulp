@@ -1,0 +1,30 @@
+{
+  "name": "duitang",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-uglify": "^3.0.2",
+    "sass": "^1.36.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^2.0.1",
+    "multer": "^1.4.3",
+    "request": "^2.88.2"
+  }
+}

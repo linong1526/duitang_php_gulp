@@ -1,0 +1,28 @@
+ # nginx.conf 文件
+
+location /dt{
+            proxy_pass https://www.duitang.com/napi/blog/list/by_filter_id;
+        }
+        
+        #首页热门内容
+        location /dt_hot{
+            #proxy_pass https://www.duitang.com/napi/vienna/feed/list/by_common/;
+            proxy_pass https://www.duitang.com/napi/vienna/feed/list/by_recommend/;
+        }
+        #首页热门内容 查看更多
+        location /dt_more{
+            proxy_pass https://www.duitang.com/napi/vienna/feed/list/by_read/;
+        }
+        #堆糖 生活家园
+        location /dtf{
+            proxy_pass https://www.duitang.com/napi/blog/list/by_filter_id/;
+        }
+        #堆糖 detail 详情评论数据
+        location /dt_comment{
+            #https://www.duitang.com/napi/vienna/comment/list/?subject_id=126839607&subject_type=23&topic_id=126839607&start=0&limit=5
+            proxy_pass https://www.duitang.com/napi/vienna/comment/list/;
+        }
+        #堆糖 detail 详情
+        location /dt_detail{
+            proxy_pass https://www.duitang.com/napi/vienna/atlas/detail/;
+        }

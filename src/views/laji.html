@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>滑入滑出</title>
+    <style>
+        #dv1 {
+            height: 0px;
+            overflow: hidden;
+        }
+
+        #dv2 {
+            width: 200px;
+            height: 200px;
+            background: #ace;
+        }
+    </style>
+</head>
+<body>
+<input type="button" id="btn2" value="点击滑出"/>
+<input type="button" id="btn1" value="点击滑入"/>
+<div id="dv1">
+    <div id="dv2"></div>
+</div>
+<script>
+    var dv = document.getElementById("dv1");
+    document.getElementById("btn1").onclick = function () {
+        animate(dv, "height", 0)
+    }
+    document.getElementById("btn2").onclick = function () {
+        animate(dv, "height", 200)
+    }
+
+    //兼容代码：获取当前元素样式的值
+    function getStyle(element, attr) {
+        return getComputedStyle ? getComputedStyle(element, null)[attr] : element.currentStyle[attr];
+    }
+
+    function animate(element, attr, target) {
+        clearInterval(element.timeId);
+        //不清理的话，每一次调用animate这个函数，就会产生一个定时器
+        element.timeId = setInterval(function () {
+            var current = parseInt(getStyle(element, attr));//返回值是元素样式的值，转换成整数进行下面的计算
+            var step = (target - current) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            current += step;
+            element.style[attr] = current + "px";
+            if (current == target) {
+                clearInterval(element.timeId);
+            }
+        }, 20)
+    }
+</script>
+</body>
+</html>

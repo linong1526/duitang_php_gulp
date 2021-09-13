@@ -1,0 +1,60 @@
+初始化  npm init -y 
+项目配置 npm install --save-dev gulp
+打包压缩css npm i -D gulp-cssmin
+执行命令 gulp css
+添加依赖 npm i -D gulp-autoprefixer
+执行命令 gulp css
+添加依赖 npm i -D gulp-sass
+         npm i sass --save-dev
+执行命令 gulp sass
+压缩js npm i -D gulp-uglify
+编译es5 npm i -D gulp-babel@8.0.1
+卸载   npm uninstall gulp-babel
+        npm i -D babel-core
+        npm i -D babel-preset-es2015
+压缩html npm i -D gulp-htmlmin
+命令 gulp html
+#无需依赖
+# 执行 lib 任务   gulp lib
+# 执行 static 任务  gulp static
+
+清除 DIST 文件夹  
+依赖npm i -D gulp-clean
+# 执行 clean 任务  gulp clean
+# 执行 default 任务gulp
+
+自动打开浏览器 依赖 npm i -D gulp-webserver
+
+修改内容自动刷新 
+接下来我们就可以再命令行运行 gulp 了
+
+sass 编译
+# 把 index.scss 编译，输出成 index.csssass index.scss index.css
+
+sass 当前路径 输出路径
+# 实时监控 index.scss 文件，
+只要发生修改就自动编译，
+并放在 index.css 文件里面  
+sass --watch index.scss:index.css
+
+# 实时监控 sass 这个目录，
+只要有变化，就会实时响应在 css 文件夹下
+sass --watch sass:css
+
+# 实时监控sass目录下的index.scss文件，只要发生修改就自动编译，
+并放在css目录下的index.css文件里面
+sass --watch ./sass/index.scss:./css/index.css
+
+# 实时监控 sass 这个目录，只要有变化，
+就会实时响应在 css 文件夹下 sass --watch ./sass:./css
+
+CREATE TABLE `members` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(200) NOT NULL,
+  `password` varchar(16) NOT NULL,
+  `nickname` varchar(200) NOT NULL,
+  `smallAvata` varchar(200) NOT NULL,
+  `tel` varchar(11) NOT NULL, 
+  `email` varchar(20) NOT NULL 
+  PRIMARY KEY (`id`)
+)

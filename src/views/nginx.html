@@ -1,0 +1,256 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../public/nginx.js"></script>
+</head>
+<body>
+    <h1>跨域测试</h1>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        a,
+        img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .box {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        ul {
+            width: 260px;
+            float: left;
+            margin-right: 30px;
+        }
+
+        ul>li {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #333;
+            margin-top: 10px;
+        }
+
+        ul>li>.imgBox {
+            width: 100%;
+        }
+
+        ul>li>.contentBox {
+            height: 160px;
+            box-sizing: border-box;
+            padding: 10px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        ul>li>.contentBox>p {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        ul>li>.contentBox>p:nth-child(1) {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            word-break: break-all;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        ul>li>.contentBox>p:nth-child(2)>i {
+            width: 10px;
+            height: 10px;
+            background-color: #bbb;
+        }
+
+        ul>li>.contentBox>p:nth-child(2)>span {
+            color: #bbb;
+            padding: 0 10px;
+        }
+
+        ul>li>.contentBox>p:nth-child(3)>span:nth-child(1) {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        ul>li>.contentBox>p:nth-child(3)>span:nth-child(2) {
+            padding-left: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ul>li>.contentBox>p:nth-child(3) .msg {
+            display: inline-block;
+            width: 100px;
+            overflow: hidden;
+            height: 18px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <!-- <li>
+                <div class="imgBox">
+                <a href="javascript:;">
+                    <img src="https://c-ssl.duitang.com/uploads/item/201904/26/20190426233120_zxpmm.thumb.400_0.jpg" alt="">
+                </a>
+                </div>
+                <div class="contentBox">
+                <p>黑白线稿/橡皮章素材/动漫/魔道祖师/蓝忘机黑白线稿/橡皮章素材/动漫/魔道祖师/蓝忘机</p>
+                <p>
+                    <i></i>
+                    <span>12</span>
+                    <i></i>
+                    <span>22</span>
+                </p>
+                <p>
+                    <span>
+                    <a href="javascript:;">
+                        <img src="https://c-ssl.duitang.com/uploads/people/201803/15/20180315202505_VsjC4.thumb.24_24_c.jpeg"
+                        alt="">
+                    </a>
+                    </span>
+                    <span>
+                    <strong>name</strong>
+                    <span>发布到 <strong>位置</strong></span>
+                    </span>
+                </p>
+                </div>
+            </li> -->
+        </ul>
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+    </div>
+
+    <script>
+        /* 
+            【1】先获取数据  function getData(){}
+            【2】把返回的数据渲染页面 function render(){}
+            【3】判断每一个ul的高度，把后面图片添加到最小高的ul中
+            【4】滚动条滚动到最小ul的高度的时候需要获取下一组数据 渲染
+        */
+        let num = 0;
+        let date = new Date();
+        let url = `/dtf?include_fields=top_comments%2Cis_root%2Csource_link%2Citem%2Cbuyable%2Croot_id%2Cstatus%2Clike_count%2Csender%2Calbum%2Creply_count&filter_id=%E6%89%8B%E5%B7%A5DIY&start=${num}&_=${date.getTime()}`;
+
+        // 获取ul元素
+        let ul = document.querySelectorAll('.box ul');  
+        let minUl;  
+        let flag = true; //表示可以请求
+
+        getData(url);
+
+        // 滚动到ul的最小高度的位置 需要再次获取数据 渲染结构
+        window.onscroll = function(){
+            // 滚动过程中需要用到最小高度的元素 
+            // 把存储最小高度的变量设置为全局变量
+            minUl = ul[0]
+            for(let i = 1;i < ul.length;i++){
+                if(ul[i].offsetHeight < minUl.offsetHeight){
+                    minUl = ul[i];
+                }
+            }
+            // 防抖节流
+            if(scrollY >= minUl.offsetHeight - innerHeight ){
+                if(flag){
+                    flag = false;
+                    url = `/dtf?include_fields=top_comments%2Cis_root%2Csource_link%2Citem%2Cbuyable%2Croot_id%2Cstatus%2Clike_count%2Csender%2Calbum%2Creply_count&filter_id=%E6%89%8B%E5%B7%A5DIY&start=${num}&_=${date.getTime()}`;
+                    getData(url);
+                }            
+            }
+        }    
+
+        function getData(url){
+            let xhr = new XMLHttpRequest();
+            xhr.open('get',url);
+            xhr.send();
+            xhr.onload = function(){
+                let res = JSON.parse(xhr.responseText);
+                render(res);
+                    // 渲染完成之后就可以继续请求数据    
+                flag = true;
+            }
+        }
+
+        function render(data){
+            num = data.data.next_start;
+            let list = data.data.object_list;
+            list.forEach((item,index)=>{
+                // 判断最小高度的ul 假设第一个ul的高度最小
+                // 然后用这个假设的去跟后面的所有ul进行比较
+                // 如果有其中一个比这个小的交换
+                minUl = ul[0]
+                for(let i = 1;i < ul.length;i++){
+                    if(ul[i].offsetHeight < minUl.offsetHeight){
+                        minUl = ul[i];
+                    }
+                }
+
+                let str = `<li>
+                <div class="imgBox">
+                <a href="javascript:;">
+                    <img src="${item.photo.path}" alt="">
+                </a>
+                </div>
+                <div class="contentBox">
+                <p>${item.msg}</p>
+                <p>
+                    <i></i>
+                    <span>${item.favorite_count}</span>
+                    <i></i>
+                    <span>${item.like_count}</span>
+                </p>
+                <p>
+                    <span>
+                    <a href="javascript:;">
+                        <img src="${item.sender.avatar}"">
+                    </a>
+                    </span>
+                    <span>
+                    <strong>name</strong>
+                    <span>发布到 <strong>${item.msg}</strong></span>
+                    </span>
+                </p>
+                </div>
+            </li>`;
+            minUl.innerHTML += str;
+            })
+        }
+    
+    </script>
+</body>
+</html>
